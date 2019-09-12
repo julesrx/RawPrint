@@ -7,9 +7,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Raw Print")]
 [assembly: AssemblyDescription("Command line Raw Print")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Tony Edgecombe")]
+[assembly: AssemblyCompany("Frogmore Computer Services Ltd")]
 [assembly: AssemblyProduct("Raw Print")]
-[assembly: AssemblyCopyright("Copyright Tony Edgecombe 2019")]
+[assembly: AssemblyCopyright("Copyright Frogmore Computer Services Ltd")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
