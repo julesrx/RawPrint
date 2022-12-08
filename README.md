@@ -1,6 +1,8 @@
 RawPrint
 ========
 
+**netstandard2.0 version**
+
 .Net library to send files directly to a Windows printer bypassing the printer driver.
 
 Send PostScript, PCL or other print file types directly to a printer.
@@ -19,7 +21,8 @@ Usage:
 
 Installation:
 
-To install Raw Print, run the following command in the [Package Manager Console](http://docs.nuget.org/docs/start-here/using-the-package-manager-console)
+To install Raw Print, run the following command in
+the [Package Manager Console](http://docs.nuget.org/docs/start-here/using-the-package-manager-console)
 
 	PM> Install-Package RawPrint
 
@@ -30,7 +33,8 @@ License moved to Frogmore Computer Services Ltd (still BSD).
 
 *2018-01-24 Version 0.4.0*
 
-IPrinter now includes a *OnJobCreated* event which fires just as the job is started, use this to modify the job information.
+IPrinter now includes a *OnJobCreated* event which fires just as the job is started, use this to modify the job
+information.
 
 *2017-02-02 Version 0.3.0*
 

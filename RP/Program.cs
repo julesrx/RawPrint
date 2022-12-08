@@ -1,28 +1,11 @@
-﻿using System;
-using RawPrint;
+﻿using RawPrint;
 
-namespace RP
+if (args.Length != 2)
 {
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            try
-            {
-                if (args.Length != 2)
-                {
-                    Console.WriteLine("Syntax:\n\n    rp <printer name> <file name>\n");
-                    return;
-                }
-
-                IPrinter printer = new Printer();
-                printer.OnJobCreated += (sender, eventArgs) => { Console.WriteLine("Job started."); };
-                printer.PrintRawFile(args[0], args[1], args[1]);
-            }
-            catch (Exception e)
-            {
-                Console.Error.WriteLine(e.Message);
-            }
-        }
-    }
+    Console.WriteLine("Syntax:\n\n    rp <printer name> <file name>\n");
+    return;
 }
+
+IPrinter printer = new Printer();
+printer.OnJobCreated += (_, _) => { Console.WriteLine("Job started."); };
+printer.PrintRawFile(args[0], args[1], args[1]);

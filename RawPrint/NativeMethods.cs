@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
+// ReSharper disable InconsistentNaming
+
 namespace RawPrint
 {
-    // ReSharper disable InconsistentNaming
-    // ReSharper disable FieldCanBeMadeReadOnly.Local
     [Flags]
     internal enum PRINTER_ACCESS_MASK : uint
     {
         PRINTER_ACCESS_ADMINISTER = 0x00000004,
         PRINTER_ACCESS_USE = 0x00000008,
         PRINTER_ACCESS_MANAGE_LIMITED = 0x00000040,
-        PRINTER_ALL_ACCESS = 0x000F000C,
+        PRINTER_ALL_ACCESS = 0x000F000C
     }
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
@@ -57,7 +57,7 @@ namespace RawPrint
         Restart = 0x04,
         Delete = 0x05,
         Retain = 0x08,
-        Release = 0x09,
+        Release = 0x09
     }
 
     internal class NativeMethods
@@ -66,10 +66,12 @@ namespace RawPrint
         public static extern int ClosePrinter(IntPtr hPrinter);
 
         [DllImport("winspool.drv", CharSet = CharSet.Unicode, SetLastError = true)]
-        public static extern int GetPrinterDriver(IntPtr hPrinter, string pEnvironment, int Level, IntPtr pDriverInfo, int cbBuf, ref int pcbNeeded);
+        public static extern int GetPrinterDriver(IntPtr hPrinter, string pEnvironment, int Level, IntPtr pDriverInfo,
+            int cbBuf, ref int pcbNeeded);
 
         [DllImport("winspool.drv", CharSet = CharSet.Unicode, SetLastError = true)]
-        public static extern uint StartDocPrinterW(IntPtr hPrinter, uint level, [MarshalAs(UnmanagedType.Struct)] ref DOC_INFO_1 di1);
+        public static extern uint StartDocPrinterW(IntPtr hPrinter, uint level,
+            [MarshalAs(UnmanagedType.Struct)] ref DOC_INFO_1 di1);
 
         [DllImport("winspool.drv", CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern int EndDocPrinter(IntPtr hPrinter);
@@ -81,7 +83,7 @@ namespace RawPrint
         public static extern int EndPagePrinter(IntPtr hPrinter);
 
         [DllImport("winspool.drv", CharSet = CharSet.Unicode, SetLastError = true)]
-        public static extern int WritePrinter(IntPtr hPrinter, [In, Out] byte[] pBuf, int cbBuf, ref int pcWritten);
+        public static extern int WritePrinter(IntPtr hPrinter, [In] [Out] byte[] pBuf, int cbBuf, ref int pcWritten);
 
         [DllImport("winspool.drv", CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern int OpenPrinterW(string pPrinterName, out IntPtr phPrinter, ref PRINTER_DEFAULTS pDefault);
@@ -89,8 +91,4 @@ namespace RawPrint
         [DllImport("winspool.drv", EntryPoint = "SetJobA", SetLastError = true)]
         public static extern int SetJob(IntPtr hPrinter, uint JobId, uint Level, IntPtr pJob, uint Command_Renamed);
     }
-
-
-    // ReSharper restore FieldCanBeMadeReadOnly.Local
-    // ReSharper restore InconsistentNaming
 }

@@ -35,7 +35,8 @@ namespace RawPrint
 
             using (var safePrinter = SafePrinter.OpenPrinter(printer, ref defaults))
             {
-                DocPrinter(safePrinter, documentName, IsXPSDriver(safePrinter) ? "XPS_PASS" : "RAW", stream, paused, pagecount, printer);
+                DocPrinter(safePrinter, documentName, IsXPSDriver(safePrinter) ? "XPS_PASS" : "RAW", stream, paused,
+                    pagecount, printer);
             }
         }
 
@@ -46,22 +47,20 @@ namespace RawPrint
             return files.Any(f => f.EndsWith("pipelineconfig.xml", StringComparison.InvariantCultureIgnoreCase));
         }
 
-        private void DocPrinter(SafePrinter printer, string documentName, string dataType, Stream stream, bool paused, int pagecount, string printerName)
+        private void DocPrinter(SafePrinter printer, string documentName, string dataType, Stream stream, bool paused,
+            int pagecount, string printerName)
         {
             var di1 = new DOC_INFO_1
             {
                 pDataType = dataType,
-                pDocName = documentName,
+                pDocName = documentName
             };
 
             var id = printer.StartDocPrinter(di1);
 
-            if (paused)
-            {
-                NativeMethods.SetJob(printer.DangerousGetHandle(), id, 0, IntPtr.Zero, (int) JobControl.Pause);
-            }
+            if (paused) NativeMethods.SetJob(printer.DangerousGetHandle(), id, 0, IntPtr.Zero, (int)JobControl.Pause);
 
-            OnJobCreated?.Invoke(this, new JobCreatedEventArgs {Id = id, PrinterName = printerName});
+            OnJobCreated?.Invoke(this, new JobCreatedEventArgs { Id = id, PrinterName = printerName });
 
             try
             {
@@ -87,7 +86,7 @@ namespace RawPrint
             }
 
             // Fix the page count in the final document
-            for (int i = 1; i < pagecount; i++)
+            for (var i = 1; i < pagecount; i++)
             {
                 printer.StartPagePrinter();
                 printer.EndPagePrinter();
@@ -102,10 +101,7 @@ namespace RawPrint
             var buffer = new byte[bufferSize];
 
             int read;
-            while ((read = stream.Read(buffer, 0, bufferSize)) != 0)
-            {
-                printer.WritePrinter(buffer, read);
-            }
+            while ((read = stream.Read(buffer, 0, bufferSize)) != 0) printer.WritePrinter(buffer, read);
         }
 
         [Obsolete]
@@ -118,10 +114,7 @@ namespace RawPrint
         }
 
         [Obsolete]
-        public static void PrintFile(string printer, string path)
-        {
-            PrintFile(printer, path, path);
-        }
+        public static void PrintFile(string printer, string path) { PrintFile(printer, path, path); }
 
         [Obsolete]
         public static void PrintStream(string printer, Stream stream, string documentName)
@@ -134,7 +127,8 @@ namespace RawPrint
             using (var safePrinter = SafePrinter.OpenPrinter(printer, ref defaults))
             {
                 var ptr = new Printer();
-                ptr.DocPrinter(safePrinter, documentName, IsXPSDriver(safePrinter) ? "XPS_PASS" : "RAW", stream, false, 1, printer);
+                ptr.DocPrinter(safePrinter, documentName, IsXPSDriver(safePrinter) ? "XPS_PASS" : "RAW", stream, false,
+                    1, printer);
             }
         }
     }
